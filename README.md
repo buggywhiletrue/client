@@ -1,4 +1,4 @@
-# Buggy Client Distribution
+# Buggy Client
 
 MS2 전용 클라이언트의 설치 및 업데이트 파일을 관리하는 비공식 배포 저장소입니다.
 개인적 범위 내에서 사용자에게 동일한 클라이언트 환경을 제공하고, 변경된 파일만 선별하여 자동으로 업데이트를 실행합니다.
@@ -13,22 +13,6 @@ MS2 전용 클라이언트의 설치 및 업데이트 파일을 관리하는 비
 4. 파일 검사 완료 후 게임 실행
 
 GitHub Release의 개별 파일을 직접 내려받거나 수정할 필요는 없습니다.
-
-## 업데이트 방식
-
-런처는 배포 매니페스트와 로컬 파일의 SHA-256 해시를 비교합니다.
-
-* 변경되지 않은 파일: 유지
-* 변경된 파일: 다시 다운로드
-* 누락된 파일: 새로 다운로드
-* 대용량 파일: 분할 다운로드 후 자동 결합
-* 소형 파일 묶음: ZIP 다운로드 후 자동 압축 해제
-
-사용자 설정 파일은 지정된 보존 정책에 따라 유지됩니다.
-
-## 무결성 검증
-
-모든 배포 파일에는 SHA-256 해시가 기록됩니다. 런처는 다운로드 완료 후 파일 크기와 해시를 확인하며, 검증에 실패한 파일은 정상 설치 파일로 처리하지 않습니다.
 
 ## 현재 배포 버전
 
@@ -63,14 +47,6 @@ GitHub Release의 개별 파일을 직접 내려받거나 수정할 필요는 �
 This is an unofficial distribution repository for installing and updating a dedicated MapleStory 2 client.
 
 The client should be installed and updated through the dedicated launcher. The launcher compares local files with the distribution manifest and downloads only files that are missing or have changed.
-
-### Update process
-
-* Unchanged files are preserved.
-* Changed or missing files are downloaded.
-* Large files are downloaded in parts and automatically reassembled.
-* Small files are distributed as ZIP bundles.
-* File integrity is verified using SHA-256 hashes.
 
 ### Current release
 
