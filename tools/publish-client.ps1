@@ -216,11 +216,11 @@ $published = gh release view $tag --repo $repository `
     --json url,publishedAt | ConvertFrom-Json
 $manifestFile = Get-Item $repositoryManifestPath
 $manifestHash = (Get-FileHash $repositoryManifestPath -Algorithm SHA256).Hash
-$manifestUrl = (
-    "https://raw.githubusercontent.com/{0}/main/manifests/client-{1}.json" -f
-    $repository,
-    $Version
-)
+$manifestUrl = "https://raw.githubusercontent.com/" +
+    $repository +
+    "/main/manifests/client-" +
+    $Version +
+    ".json"
 $latest = [ordered]@{
     schemaVersion = 1
     clientVersion = $Version
@@ -241,15 +241,23 @@ $latest = [ordered]@{
 
 $readmePath = Join-Path $repositoryRoot "README.md"
 if (Test-Path $readmePath) {
-    $readme = Get-Content $readmePath -Raw
-    $koreanVersionLine = '- 클라이언트 버전: `{0}`' -f $Version
-    $englishVersionLine = '- Client version: `{0}`' -f $Version
-    $readme = $readme -replace `
-        '(?m)^- 클라이언트 버전: `[^\r\n]+`$', `
-        $koreanVersionLine
-    $readme = $readme -replace `
-        '(?m)^- Client version: `[^\r\n]+`$', `
-        $englishVersionLine
+    $backtickCharacter = [char]96
+    $readmeLines = @(Get-Content $readmePath)
+
+    for ($lineIndex = 0; $lineIndex -lt $readmeLines.Count; $lineIndex++) {
+        if ($readmeLines[$lineIndex].StartsWith("- 클라이언트 버전:")) {
+            $readmeLines[$lineIndex] = "- 클라이언트 버전: " +
+                $backtickCharacter + $Version + $backtickCharacter
+        }
+
+        if ($readmeLines[$lineIndex].StartsWith("- Client version:")) {
+            $readmeLines[$lineIndex] = "- Client version: " +
+                $backtickCharacter + $Version + $backtickCharacter
+        }
+    }
+
+    $readme = $readmeLines -join [Environment]::NewLine
+    $readme += [Environment]::NewLine
     [IO.File]::WriteAllText(
         $readmePath, $readme, (New-Object Text.UTF8Encoding($false))
     )
