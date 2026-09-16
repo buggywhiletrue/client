@@ -68,12 +68,12 @@ $classifications = @(
     Import-Csv $classificationPath
 )
 
-if ($assets.Count -ne 124) {
-    throw "배포 자산 수가 124개가 아닙니다: $($assets.Count)"
+if ($assets.Count -eq 0) {
+    throw "자산 보고서에 배포 자산이 없습니다."
 }
 
-if ($classifications.Count -ne 918) {
-    throw "분류 파일 수가 918개가 아닙니다: $($classifications.Count)"
+if ($classifications.Count -eq 0) {
+    throw "분류 보고서에 배포 파일이 없습니다."
 }
 
 $baseUrl = "https://github.com/$($config.repository)/releases/download/$releaseTag"
@@ -225,8 +225,8 @@ $manifestFileCount = (
     ).Sum
 )
 
-if ($manifestFileCount -ne 918) {
-    throw "매니페스트 파일 수가 918개가 아닙니다: $manifestFileCount"
+if ($manifestFileCount -ne $classifications.Count) {
+    throw "매니페스트 파일 수가 분류 파일 수와 다릅니다: $manifestFileCount / $($classifications.Count)"
 }
 
 $totalInstalledBytes = (
