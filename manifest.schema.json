@@ -1,0 +1,185 @@
+{
+    "$schema":  "https://json-schema.org/draft/2020-12/schema",
+    "$id":  "https://raw.githubusercontent.com/buggywhiletrue/client/main/manifest.schema.json",
+    "title":  "Buggy Client Distribution Manifest",
+    "type":  "object",
+    "required":  [
+                     "schemaVersion",
+                     "clientVersion",
+                     "releaseTag",
+                     "files",
+                     "bundles"
+                 ],
+    "properties":  {
+                       "schemaVersion":  {
+                                             "type":  "integer",
+                                             "minimum":  1
+                                         },
+                       "clientVersion":  {
+                                             "type":  "string",
+                                             "pattern":  "^\\d+\\.\\d+\\.\\d+$"
+                                         },
+                       "releaseTag":  {
+                                          "type":  "string",
+                                          "pattern":  "^client-v\\d+\\.\\d+\\.\\d+$"
+                                      },
+                       "files":  {
+                                     "items":  {
+                                                   "$ref":  "#/$defs/independentFile"
+                                               },
+                                     "type":  "array"
+                                 },
+                       "bundles":  {
+                                       "items":  {
+                                                     "$ref":  "#/$defs/bundle"
+                                                 },
+                                       "type":  "array"
+                                   }
+                   },
+    "$defs":  {
+                  "asset":  {
+                                "additionalProperties":  true,
+                                "properties":  {
+                                                   "url":  {
+                                                               "type":  "string",
+                                                               "format":  "uri"
+                                                           },
+                                                   "sha256":  {
+                                                                  "type":  "string",
+                                                                  "pattern":  "^[A-Fa-f0-9]{64}$"
+                                                              },
+                                                   "name":  {
+                                                                "minLength":  1,
+                                                                "type":  "string"
+                                                            },
+                                                   "size":  {
+                                                                "type":  "integer",
+                                                                "minimum":  0
+                                                            }
+                                               },
+                                "type":  "object",
+                                "required":  [
+                                                 "name",
+                                                 "size",
+                                                 "sha256",
+                                                 "url"
+                                             ]
+                            },
+                  "installedFile":  {
+                                        "additionalProperties":  true,
+                                        "properties":  {
+                                                           "path":  {
+                                                                        "minLength":  1,
+                                                                        "type":  "string"
+                                                                    },
+                                                           "sha256":  {
+                                                                          "type":  "string",
+                                                                          "pattern":  "^[A-Fa-f0-9]{64}$"
+                                                                      },
+                                                           "installMode":  {
+                                                                               "type":  "string",
+                                                                               "enum":  [
+                                                                                            "replace",
+                                                                                            "ifMissing",
+                                                                                            "preserve"
+                                                                                        ]
+                                                                           },
+                                                           "size":  {
+                                                                        "type":  "integer",
+                                                                        "minimum":  0
+                                                                    }
+                                                       },
+                                        "type":  "object",
+                                        "required":  [
+                                                         "path",
+                                                         "size",
+                                                         "sha256",
+                                                         "installMode"
+                                                     ]
+                                    },
+                  "independentFile":  {
+                                          "additionalProperties":  true,
+                                          "properties":  {
+                                                             "sha256":  {
+                                                                            "type":  "string",
+                                                                            "pattern":  "^[A-Fa-f0-9]{64}$"
+                                                                        },
+                                                             "atomicGroup":  {
+                                                                                 "type":  "string"
+                                                                             },
+                                                             "delivery":  {
+                                                                              "type":  "string",
+                                                                              "enum":  [
+                                                                                           "file",
+                                                                                           "parts"
+                                                                                       ]
+                                                                          },
+                                                             "assets":  {
+                                                                            "minItems":  1,
+                                                                            "items":  {
+                                                                                          "$ref":  "#/$defs/asset"
+                                                                                      },
+                                                                            "type":  "array"
+                                                                        },
+                                                             "path":  {
+                                                                          "minLength":  1,
+                                                                          "type":  "string"
+                                                                      },
+                                                             "size":  {
+                                                                          "type":  "integer",
+                                                                          "minimum":  0
+                                                                      }
+                                                         },
+                                          "type":  "object",
+                                          "required":  [
+                                                           "path",
+                                                           "size",
+                                                           "sha256",
+                                                           "delivery",
+                                                           "assets"
+                                                       ]
+                                      },
+                  "bundle":  {
+                                 "additionalProperties":  true,
+                                 "properties":  {
+                                                    "id":  {
+                                                               "minLength":  1,
+                                                               "type":  "string"
+                                                           },
+                                                    "files":  {
+                                                                  "minItems":  1,
+                                                                  "items":  {
+                                                                                "$ref":  "#/$defs/installedFile"
+                                                                            },
+                                                                  "type":  "array"
+                                                              },
+                                                    "sha256":  {
+                                                                   "type":  "string",
+                                                                   "pattern":  "^[A-Fa-f0-9]{64}$"
+                                                               },
+                                                    "asset":  {
+                                                                  "minLength":  1,
+                                                                  "type":  "string"
+                                                              },
+                                                    "url":  {
+                                                                "type":  "string",
+                                                                "format":  "uri"
+                                                            },
+                                                    "size":  {
+                                                                 "type":  "integer",
+                                                                 "minimum":  0
+                                                             }
+                                                },
+                                 "type":  "object",
+                                 "required":  [
+                                                  "id",
+                                                  "asset",
+                                                  "size",
+                                                  "sha256",
+                                                  "url",
+                                                  "files"
+                                              ]
+                             }
+              },
+    "additionalProperties":  true
+}

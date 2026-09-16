@@ -1,0 +1,91 @@
+{
+  "repository": "buggywhiletrue/client",
+  "sourceDirectory": "D:\\Buggy_Client",
+  "buildDirectory": "D:\\Buggy_Distribution\\build",
+  "releaseTagPrefix": "client-v",
+  "splitThresholdBytes": 2040109465,
+  "partSizeBytes": 536870912,
+  "exclude": [
+    "GPUCache/**",
+    "ms2log/**",
+    "**/debug.log",
+    "**/*.log",
+    "**/*.tmp",
+    "**/*.dmp",
+    "**/*.bak"
+  ],
+  "preserve": [
+    "Config.ini",
+    "GPUCache/**",
+    "ms2log/**"
+  ],
+  "installIfMissing": [
+    "Config.ini"
+  ],
+  "standaloneExtensions": [
+    ".m2d",
+    ".m2h",
+    ".fsb",
+    ".fev"
+  ],
+  "standaloneFiles": [
+    "x64/AgarciumClient.dll",
+    "x64/NxCharacter64.dll"
+  ],
+  "atomicGroups": [
+    {
+      "id": "data-xml",
+      "files": [
+        "Data/Xml.m2d",
+        "Data/Xml.m2h"
+      ]
+    },
+    {
+      "id": "data-server",
+      "files": [
+        "Data/Server.m2d",
+        "Data/Server.m2h"
+      ]
+    }
+  ],
+  "bundles": [
+    {
+      "id": "runtime-x64",
+      "source": "x64",
+      "exclude": [
+        "AgarciumClient.dll",
+        "NxCharacter64.dll",
+        "debug.log",
+        "*.bak"
+      ]
+    },
+    {
+      "id": "nxsteam",
+      "source": "nxsteam"
+    },
+    {
+      "id": "cef-res",
+      "source": "cef_res"
+    },
+    {
+      "id": "blackcipher",
+      "source": "BlackCipher"
+    },
+    {
+      "id": "custom",
+      "source": "Custom"
+    },
+    {
+      "id": "config",
+      "source": "Config"
+    },
+    {
+      "id": "vc90-crt",
+      "source": "Microsoft.VC90.CRT"
+    },
+    {
+      "id": "vc90-mfc",
+      "source": "Microsoft.VC90.MFC"
+    }
+  ]
+}
