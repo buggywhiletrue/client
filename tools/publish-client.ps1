@@ -186,7 +186,8 @@ Write-Host "원격 자산 검증 통과: $($remoteAssets.Count)개"
 if (-not $Publish) {
     Write-Host ""
     Write-Host "초안 업로드와 검증 완료"
-    Write-Host ".\tools\publish-client.ps1 -Version `"$Version`" -Publish"
+    $publishCommand = '.\tools\publish-client.ps1 -Version "{0}" -Publish' -f $Version
+    Write-Host $publishCommand
     exit 0
 }
 
@@ -215,14 +216,22 @@ $published = gh release view $tag --repo $repository `
     --json url,publishedAt | ConvertFrom-Json
 $manifestFile = Get-Item $repositoryManifestPath
 $manifestHash = (Get-FileHash $repositoryManifestPath -Algorithm SHA256).Hash
+$manifestUrl = (
+    "https://raw.githubusercontent.com/{0}/main/manifests/client-{1}.json" -f
+    $repository,
+    $Version
+)
 $latest = [ordered]@{
-    schemaVersion=1; clientVersion=$Version; releaseTag=$tag
-    manifest=[ordered]@{
-        url="https://raw.githubusercontent.com/$repository/main/manifests/client-$Version.json"
-        size=[long]$manifestFile.Length; sha256=$manifestHash
+    schemaVersion = 1
+    clientVersion = $Version
+    releaseTag = $tag
+    manifest = [ordered]@{
+        url = $manifestUrl
+        size = [long]$manifestFile.Length
+        sha256 = $manifestHash
     }
-    releaseUrl=[string]$published.url
-    generatedAt=[string]$published.publishedAt
+    releaseUrl = [string]$published.url
+    generatedAt = [string]$published.publishedAt
 }
 [IO.File]::WriteAllText(
     (Join-Path $repositoryRoot "latest.json"),
@@ -233,10 +242,14 @@ $latest = [ordered]@{
 $readmePath = Join-Path $repositoryRoot "README.md"
 if (Test-Path $readmePath) {
     $readme = Get-Content $readmePath -Raw
-    $readme = $readme -replace '(?m)^- 클라이언트 버전: `[^\r\n]+`$', `
-        "- 클라이언트 버전: ``$Version``"
-    $readme = $readme -replace '(?m)^- Client version: `[^\r\n]+`$', `
-        "- Client version: ``$Version``"
+    $koreanVersionLine = '- 클라이언트 버전: `{0}`' -f $Version
+    $englishVersionLine = '- Client version: `{0}`' -f $Version
+    $readme = $readme -replace `
+        '(?m)^- 클라이언트 버전: `[^\r\n]+`$', `
+        $koreanVersionLine
+    $readme = $readme -replace `
+        '(?m)^- Client version: `[^\r\n]+`$', `
+        $englishVersionLine
     [IO.File]::WriteAllText(
         $readmePath, $readme, (New-Object Text.UTF8Encoding($false))
     )
