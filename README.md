@@ -40,8 +40,6 @@ GitHub Release의 개별 파일을 직접 내려받거나 수정할 필요는 �
 
 ---
 
-# Buggy Client
-
 This is an unofficial distribution repository for installing and updating a dedicated MapleStory 2 client.
 
 The client should be installed and updated through the dedicated launcher. The launcher compares local files with the distribution manifest and downloads only files that are missing or have changed.
@@ -59,3 +57,4 @@ The client should be installed and updated through the dedicated launcher. The l
 Do not manually modify or redistribute the distributed files. Close the game client before starting an update.
 
 This is an unofficial project and is not affiliated with Nexon or the original rights holders. All rights to MapleStory 2 and its related software, assets, music, and game data belong to their respective owners. The files are provided without commercial purpose for limited personal use.
+
