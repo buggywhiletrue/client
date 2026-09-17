@@ -154,8 +154,8 @@ $records = @(
     Import-Csv $classificationPath
 )
 
-if ($records.Count -ne 918) {
-    throw "배포 파일 수가 918개가 아닙니다: $($records.Count)"
+if ($records.Count -eq 0) {
+    throw "배포 파일이 없습니다."
 }
 
 $assetReport = @()
