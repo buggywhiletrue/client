@@ -3,10 +3,10 @@
     "clientVersion":  "3.0.1",
     "releaseTag":  "client-v3.0.1",
     "repository":  "buggywhiletrue/client",
-    "generatedAtUtc":  "2026-09-16T05:30:35.8904565Z",
-    "totalFileCount":  918,
-    "totalInstalledBytes":  17109776629,
-    "totalDownloadBytes":  16811446876,
+    "generatedAtUtc":  "2026-09-17T17:37:53.254Z",
+    "totalFileCount":  919,
+    "totalInstalledBytes":  17109904981,
+    "totalDownloadBytes":  16811575228,
     "preserve":  [
                      "Config.ini",
                      "GPUCache/**",
@@ -1622,14 +1622,12 @@
                       "size":  128352,
                       "sha256":  "E742CA44B24AAD0787D73C5DA530EED16FA945BD539B1AB00ED0408AB69D0949",
                       "delivery":  "file",
-                      "atomicGroup":  "x64/NxCharacter64",
-                      "installMode":  "replace",
                       "assets":  [
                                      {
                                          "name":  "x64__NxCharacter64.dll.bak",
                                          "size":  128352,
                                          "sha256":  "E742CA44B24AAD0787D73C5DA530EED16FA945BD539B1AB00ED0408AB69D0949",
-                                         "url":  "https://github.com/buggywhiletrue/client/releases/download/untagged-ef97ad43b461ce7c4dd8/x64__NxCharacter64.dll.bak"
+                                         "url":  "https://github.com/buggywhiletrue/client/releases/download/client-v3.0.1/x64__NxCharacter64.dll.bak"
                                      }
                                  ]
                   }
