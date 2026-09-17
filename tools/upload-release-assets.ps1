@@ -1,5 +1,6 @@
 ﻿param(
-    [string]$Version = "3.0.0"
+    [Parameter(Mandatory = $true)]
+    [string]$Version
 )
 
 $ErrorActionPreference = "Stop"
@@ -23,8 +24,29 @@ $localAssets = @(
         Sort-Object Name
 )
 
-if ($localAssets.Count -ne 124) {
-    throw "로컬 자산 수가 124개가 아닙니다: $($localAssets.Count)"
+$manifestPath = Join-Path `
+    "D:\\Buggy_Distribution\\build\\$tag" `
+    "manifests\\client-$Version.json"
+
+if (-not (Test-Path -LiteralPath $manifestPath)) {
+    throw "매니페스트를 찾을 수 없습니다: $manifestPath"
+}
+
+$manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
+$expectedAssetNames = @()
+
+foreach ($file in $manifest.files) {
+    foreach ($asset in $file.assets) {
+        $expectedAssetNames += [string]$asset.name
+    }
+}
+
+foreach ($bundle in $manifest.bundles) {
+    $expectedAssetNames += [string]$bundle.asset
+}
+
+if ($localAssets.Count -ne $expectedAssetNames.Count) {
+    throw "로컬 자산 수와 매니페스트 자산 수가 다릅니다: $($localAssets.Count) / $($expectedAssetNames.Count)"
 }
 
 $duplicateNames = @(
