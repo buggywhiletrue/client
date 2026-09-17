@@ -46,6 +46,27 @@ function Test-ExcludedPath {
     return $false
 }
 
+function Test-ForceIncludedPath {
+    param(
+        [string]$Path,
+        [object[]]$Paths
+    )
+
+    $normalizedPath = Convert-ToNormalizedPath $Path
+
+    foreach ($forceIncludedPath in $Paths) {
+        $normalizedForceIncludedPath = Convert-ToNormalizedPath (
+            [string]$forceIncludedPath
+        )
+
+        if ($normalizedPath -ieq $normalizedForceIncludedPath) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
 if (-not (Test-Path $ConfigPath)) {
     throw "설정 파일을 찾을 수 없습니다: $ConfigPath"
 }
@@ -69,7 +90,14 @@ foreach ($file in $allFiles) {
     $normalizedPath = Convert-ToNormalizedPath $relativePath
     $extension = $file.Extension.ToLowerInvariant()
 
-    if (Test-ExcludedPath $normalizedPath $config.exclude) {
+    $forceIncluded = Test-ForceIncludedPath `
+        -Path $normalizedPath `
+        -Paths @($config.forceInclude)
+
+    if (
+        -not $forceIncluded -and
+        (Test-ExcludedPath $normalizedPath $config.exclude)
+    ) {
         $excludedRecords += [PSCustomObject]@{
             Path = $normalizedPath
             Size = $file.Length
