@@ -1,12 +1,12 @@
 {
     "schemaVersion":  1,
-    "clientVersion":  "3.0.0",
-    "releaseTag":  "client-v3.0.0",
+    "clientVersion":  "3.0.1",
+    "releaseTag":  "client-v3.0.1",
     "manifest":  {
-                     "url":  "https://raw.githubusercontent.com/buggywhiletrue/client/main/manifests/client-3.0.0.json",
-                     "size":  449639,
-                     "sha256":  "69F71F4877F438CEEAA263D0DF8F66DB039C1B1EE61F601D447D8092D5A3744F"
+                     "url":  "https://raw.githubusercontent.com/buggywhiletrue/client/main/manifests/client-3.0.1.json",
+                     "size":  454640,
+                     "sha256":  "23B8473A94E2A2BD5DEEECFEF8FE1F1074053DE95C24675DC560AA4FA7F1DA1A"
                  },
-    "releaseUrl":  "https://github.com/buggywhiletrue/client/releases/tag/client-v3.0.0",
-    "generatedAt":  "2026-09-16T09:34:50Z"
+    "releaseUrl":  "https://github.com/buggywhiletrue/client/releases/tag/client-v3.0.1",
+    "generatedAt":  "2026-09-17T05:25:24Z"
 }
