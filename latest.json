@@ -4,8 +4,8 @@
     "releaseTag":  "client-v3.0.1",
     "manifest":  {
                      "url":  "https://raw.githubusercontent.com/buggywhiletrue/client/main/manifests/client-3.0.1.json",
-                     "size":  454640,
-                     "sha256":  "23B8473A94E2A2BD5DEEECFEF8FE1F1074053DE95C24675DC560AA4FA7F1DA1A"
+                     "size":  448052,
+                     "sha256":  "6A8AC2A0E8AE17EA1AB2E46300D31D5B19E296B9BD584565544A7620141AE368"
                  },
     "releaseUrl":  "https://github.com/buggywhiletrue/client/releases/tag/client-v3.0.1",
     "generatedAt":  "2026-09-17T05:25:24Z"
