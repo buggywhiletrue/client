@@ -14,6 +14,9 @@
     "**/*.dmp",
     "**/*.bak"
   ],
+  "forceInclude": [
+    "x64/NxCharacter64.dll.bak"
+  ],
   "preserve": [
     "Config.ini",
     "GPUCache/**",
@@ -30,7 +33,8 @@
   ],
   "standaloneFiles": [
     "x64/AgarciumClient.dll",
-    "x64/NxCharacter64.dll"
+    "x64/NxCharacter64.dll",
+    "x64/NxCharacter64.dll.bak"
   ],
   "atomicGroups": [
     {
